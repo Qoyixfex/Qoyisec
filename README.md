@@ -6,6 +6,7 @@ clone git
 ```chmod +x tool.py```
 
 install requirements.txt
+
 ```pip install (if u never install a pip before)```
 
 ```pip3 install -r requirements.txt```
