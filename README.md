@@ -12,6 +12,8 @@ install requirements.txt
 ```pip3 install -r requirements.txt```
 
 ls
+
 ```cd QoyiSec```
+run
 
 ```python3 tool.py```
