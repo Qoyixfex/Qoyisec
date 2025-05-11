@@ -54,7 +54,7 @@ HIBP_API_KEY = "YOUR_HIBP_API_KEY"
 cd Qoyisec```
 
 **3. Install Python packages**
-pip3 install -r requirements.txt
+```pip3 install -r requirements.txt```
 
 **4. Run the tool**
 ```python3 tool.py (go to usage Read.Md if u want to use it)```
