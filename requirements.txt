@@ -1,9 +1,8 @@
 requests
 beautifulsoup4
-nmap3
+python-nmap
 phonenumbers
 colorama
 paramiko
 dnspython
 python-whois
-
