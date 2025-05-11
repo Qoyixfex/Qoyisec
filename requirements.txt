@@ -1,6 +1,6 @@
 requests
 beautifulsoup4
 dnspython
-fake-useragent
+fake_useragent
 python-nmap
 argparse
