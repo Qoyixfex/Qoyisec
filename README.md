@@ -81,7 +81,7 @@ cd Qoyisec```
 pip install -r requirements.txt```
 
 **4. Run the tool**
-```python3 tool.py (if u want to use it, go to usage Read.Md)``
+```python3 tool.py (if u want to use it, go to usage Read.Md)```
 
 
 
