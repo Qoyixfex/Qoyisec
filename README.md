@@ -36,7 +36,7 @@ Make sure you have `nmap` installed:
 
 ## 🔑 API Keys
 
-Replace these placeholders in `ultimate_toolkit.py` with your actual keys:
+Replace these placeholders in `tool.py` with your actual keys:
 
 ```python
 VIRUSTOTAL_API_KEY = "YOUR_VIRUSTOTAL_API_KEY"
