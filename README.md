@@ -1,26 +1,26 @@
 # 🛠️ Multitool With OSINT
 
-
-> **EDUCATIONAL PURPOSE ONLY**  
-> This tool is intended for **educational** and **ethical hacking** purposes. Always get **permission** before scanning or testing any system.
+> **⚠️ EDUCATIONAL PURPOSES ONLY**  
+> This tool is intended for **educational** and **ethical hacking** use only.  
+> **Always obtain proper authorization** before scanning or testing any system.
 
 ---
 
 ## ⚙️ Features
 
 - 🔐 Password hash cracking (MD5, SHA1, SHA256, SHA512, NTLM)
-- 🚪 SSH Brute Forcing
+- 🚪 SSH brute forcing
 - 🕵️ OSINT modules for emails & phone numbers
 - 🔍 Vulnerability scanning using Nmap
-- 🔍 HaveIBeenPwned integration
+- 📧 HaveIBeenPwned integration
 - 📱 Phone number lookup (region, carrier, timezone)
-- 🧠 Beautiful CLI interface
+- 🎨 Colorful and user-friendly CLI interface
 
 ---
 
 ## 📦 Requirements
 
-Install required Python packages:
+Install the required Python packages:
 
 ```bash
 pip install -r requirements.txt
@@ -28,69 +28,86 @@ pip install -r requirements.txt
 
 Make sure you have `nmap` installed:
 
-- Debian/Ubuntu: `sudo apt install nmap`
-- macOS: `brew install nmap`
-- Windows: [Download Nmap](https://nmap.org/download.html)
+- **Debian/Ubuntu/Kali**:  
+  ```bash
+  sudo apt install nmap
+  ```
+- **macOS**:  
+  ```bash
+  brew install nmap
+  ```
+- **Windows**:  
+  [Download from official site](https://nmap.org/download.html)
 
 ---
 
 ## 🔑 API Keys
 
-Replace these placeholders in `tool.py` with your actual keys:
+Edit `tool.py` and replace the following:
 
 ```python
 VIRUSTOTAL_API_KEY = "YOUR_VIRUSTOTAL_API_KEY"
 HIBP_API_KEY = "YOUR_HIBP_API_KEY"
 ```
 
----
+Get free API keys from:
 
-# 🐧 Debian/Ubuntu/Kali Linux
-**1. Update and install dependencies**
-```sudo apt update && sudo apt install -y python3 python3-pip nmap git```
-
-**2. Clone the repository**
-```git clone https://github.com/Qoyixfex/Qoyisec
-cd Qoyisec```
-
-**3. Install Python packages**
-```pip3 install -r requirements.txt```
-
-**4. Run the tool**
-```python3 tool.py (go to usage Read.Md if u want to use it)```
-
-
-
+- [VirusTotal](https://www.virustotal.com/)
+- [HaveIBeenPwned](https://haveibeenpwned.com/API/v3)
 
 ---
 
+## 🐧 Installation on Debian/Ubuntu/Kali
 
+### 1. Update and install dependencies
+```bash
+sudo apt update && sudo apt install -y python3 python3-pip nmap git
+```
 
-# 📱 Termux (Android)
+### 2. Clone the repository
+```bash
+git clone https://github.com/Qoyixfex/Qoyisec
+cd Qoyisec
+```
 
-**1. Update packages and install essentials**
-```pkg update && pkg upgrade -y
-pkg install -y python git nmap openssh```
+### 3. Install Python packages
+```bash
+pip3 install -r requirements.txt
+```
 
-**2. Clone the repository**
-```git clone https://github.com/Qoyixfex/Qoyisec
-cd Qoyisec```
-
-**3. Install pip packages**
-```pip install --upgrade pip
-pip install -r requirements.txt```
-
-**4. Run the tool**
-```python3 tool.py (if u want to use it, go to usage Read.Md)```
-
-
-
+### 4. Run the tool
+```bash
+python3 tool.py
+```
 
 ---
 
+## 📱 Installation on Termux (Android)
 
+### 1. Update packages and install essentials
+```bash
+pkg update && pkg upgrade -y
+pkg install -y python git nmap openssh
+```
 
+### 2. Clone the repository
+```bash
+git clone https://github.com/Qoyixfex/Qoyisec
+cd Qoyisec
+```
 
+### 3. Install Python packages
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### 4. Run the tool
+```bash
+python3 tool.py
+```
+
+---
 
 ## 🚀 Usage
 
@@ -99,31 +116,26 @@ python3 tool.py [command] [options]
 ```
 
 ### 🔓 Crack a hash
-
 ```bash
 python3 tool.py crack -w wordlist.txt -t sha256 <hash>
 ```
 
-### 💥 SSH Brute Force
-
+### 💥 SSH brute force
 ```bash
 python3 tool.py brute -u root -w passwords.txt <target_ip>
 ```
 
-### 🔍 Vulnerability Scan
-
+### 🔍 Vulnerability scan
 ```bash
 python3 tool.py scan <target_ip>
 ```
 
-### 📱 Phone Number OSINT
-
+### 📱 Phone number OSINT
 ```bash
 python3 tool.py phone "+14155552671"
 ```
 
-### 📧 Email Breach Check
-
+### 📧 Email breach check
 ```bash
 python3 tool.py email "example@example.com"
 ```
@@ -143,16 +155,16 @@ python3 tool.py email "example@example.com"
 
 ## ⚠️ Legal Disclaimer
 
-This project is intended **only for educational and ethical testing** purposes.  
-**Do not use** this tool to attack or access systems without proper authorization.  
-By using this toolkit, you agree to use it **at your own risk**.
+This project is intended **only for educational and authorized security testing**.  
+Do **NOT** use this tool to access or attack systems without **explicit permission**.  
+By using this software, you agree to assume **full responsibility** for any actions performed with it.
 
 ---
 
-## 🤖 owner
-CREDITS:
+## ⭐ Credits
+
+ZamSec
 QoyiSec
-Zam
 Foxus
 
-Made with Python.
+If u like the tool, please share it.
