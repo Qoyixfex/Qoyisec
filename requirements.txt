@@ -3,3 +3,4 @@ phonenumbers
 colorama
 python-nmap
 prettytable
+dnspython
