@@ -1,12 +1,5 @@
 requests
-dnspython
-cryptography
-beautifulsoup4
-fake-useragent
-python-nmap
 phonenumbers
-instaloader
 colorama
-hydra-core
-paramiko
-pyhibp
+python-nmap
+prettytable
