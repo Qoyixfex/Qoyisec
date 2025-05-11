@@ -1,5 +1,12 @@
-
 requests
+dnspython
+cryptography
+beautifulsoup4
+fake-useragent
+nmap3
+phonenumbers
+instaloader
 colorama
-scapy
-argparse
+hydra-core
+paramiko
+pyhibp
