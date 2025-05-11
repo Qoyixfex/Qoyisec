@@ -1,6 +1,9 @@
 requests
 beautifulsoup4
+nmap3
+phonenumbers
+colorama
+paramiko
 dnspython
-fake_useragent
-python-nmap
-argparse
+python-whois
+
