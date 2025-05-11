@@ -44,19 +44,19 @@ HIBP_API_KEY = "YOUR_HIBP_API_KEY"
 
 ---
 
-🐧 Debian/Ubuntu/Kali Linux
-# 1. Update and install dependencies
-sudo apt update && sudo apt install -y python3 python3-pip nmap git
+# 🐧 Debian/Ubuntu/Kali Linux
+**1. Update and install dependencies**
+```sudo apt update && sudo apt install -y python3 python3-pip nmap git```
 
-# 2. Clone the repository
-git clone https://github.com/Qoyixfex/Qoyisec
-cd Qoyisec
+**2. Clone the repository**
+```git clone https://github.com/Qoyixfex/Qoyisec
+cd Qoyisec```
 
-# 3. Install Python packages
+**3. Install Python packages**
 pip3 install -r requirements.txt
 
-# 4. Run the tool
-python3 tool.py (go to usage Read.Md if u want to use it)
+**4. Run the tool**
+```python3 tool.py (go to usage Read.Md if u want to use it)```
 
 
 
@@ -65,22 +65,22 @@ python3 tool.py (go to usage Read.Md if u want to use it)
 
 
 
-📱 Termux (Android)
+# 📱 Termux (Android)
 
-# 1. Update packages and install essentials
-pkg update && pkg upgrade -y
-pkg install -y python git nmap openssh
+**1. Update packages and install essentials**
+```pkg update && pkg upgrade -y
+pkg install -y python git nmap openssh```
 
-# 2. Clone the repository
-git clone https://github.com/Qoyixfex/Qoyisec
-cd Qoyisec
+**2. Clone the repository**
+```git clone https://github.com/Qoyixfex/Qoyisec
+cd Qoyisec```
 
-# 3. Install pip packages
-pip install --upgrade pip
-pip install -r requirements.txt
+**3. Install pip packages**
+```pip install --upgrade pip
+pip install -r requirements.txt```
 
-# 4. Run the tool
-python3 tool.py (if u want to use it, go to usage Read.Md)
+**4. Run the tool**
+```python3 tool.py (if u want to use it, go to usage Read.Md)``
 
 
 
