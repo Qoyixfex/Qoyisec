@@ -1,4 +1,5 @@
-# 🛠️ MULTITOLL WITH OSINT BY QOYISEC
+# 🛠️ Multitool With OSINT
+
 
 > **EDUCATIONAL PURPOSE ONLY**  
 > This tool is intended for **educational** and **ethical hacking** purposes. Always get **permission** before scanning or testing any system.
