@@ -3,7 +3,7 @@ dnspython
 cryptography
 beautifulsoup4
 fake-useragent
-nmap3
+python-nmap
 phonenumbers
 instaloader
 colorama
