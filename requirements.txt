@@ -1,6 +1,6 @@
 requests
-phonenumbers
-colorama
-python-nmap
-prettytable
+beautifulsoup4
 dnspython
+fake-useragent
+python-nmap
+argparse
